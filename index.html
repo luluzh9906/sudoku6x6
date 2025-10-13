@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>6x6 Sudoku — Mini</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#3b82f6">
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>6×6 Sudoku</h1>
+      <div class="controls">
+        <label>Difficulty:
+          <select id="difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium" selected>Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </label>
+        <button id="newBtn">New Game</button>
+        <button id="solveBtn">Solve</button>
+        <button id="hintBtn">Hint</button>
+        <label><input type="checkbox" id="noteMode"> Note</label>
+      </div>
+    </header>
+
+    <main>
+      <div class="meta">
+        <div>Time: <span id="timer">00:00</span></div>
+        <div>Mistakes: <span id="mistakes">0</span>/3</div>
+      </div>
+
+      <div id="board" aria-label="6 by 6 sudoku board"></div>
+
+      <div class="keypad" aria-hidden="false">
+        <button class="num">1</button>
+        <button class="num">2</button>
+        <button class="num">3</button>
+        <button class="num">4</button>
+        <button class="num">5</button>
+        <button class="num">6</button>
+        <button id="erase">Erase</button>
+        <button id="clearNotes">Clear Notes</button>
+      </div>
+
+      <div class="footer-note">
+        <small>Rules: Fill 1–6. Each row, column and 3×2 box must contain all digits 1–6.</small>
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    // register service worker for PWA
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(()=>console.log('SW registered'))
+        .catch(e=>console.warn('SW reg failed', e));
+    }
+  </script>
+</body>
+</html>

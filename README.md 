@@ -1,0 +1,29 @@
+# 6x6 Sudoku — Mini (English)
+
+A lightweight 6×6 Sudoku web game (PWA) — ready to deploy on GitHub Pages.
+
+## Features
+- 6×6 grid with 3×2 boxes
+- Puzzle generator & backtracking solver
+- Difficulty: Easy / Medium / Hard
+- Note mode, hints, erase, keyboard support
+- Timer and mistake counter
+- Installable as PWA (manifest + service worker)
+- Responsive for mobile & desktop
+
+## How to run locally
+1. Clone the repo.
+2. Open `index.html` in a browser (for service-worker to work use a static server).
+   - Simple local server: `npx http-server` or `python -m http.server 8000`.
+3. Enjoy!
+
+## Deploy to GitHub Pages
+1. Create a new repository on GitHub and push all files.
+2. In repository settings -> Pages -> choose branch `main` (or `gh-pages`) and `/ (root)`.
+3. After a minute your site will be live.
+4. The PWA install prompt will appear on supported browsers (Chrome/Edge/Firefox Android).
+
+## Notes & Future Improvements
+- Current `carvePuzzle` ensures solvability but does not guarantee uniqueness. To enforce uniqueness, integrate a solver that counts solutions after each removal (slower).
+- If you want strict unique-solution puzzles, I can provide a `countSolutions` variant and integrate it (tradeoff: generation speed).
+- UI polish suggestions: add animations, better mobile layout, undo/redo, shareable puzzle link.
