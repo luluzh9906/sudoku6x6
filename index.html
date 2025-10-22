@@ -1,65 +1,91 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>6x6 Sudoku — Mini</title>
+  <title>Lulu Sudoku - 绿意版数独游戏</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#3b82f6">
+  <link rel="icon" href="favicon.ico" />
+  <meta name="theme-color" content="#2b9a58" />
 </head>
 <body>
-  <div id="app">
-    <header>
-      <h1>6×6 Sudoku</h1>
+  <div class="container">
+    <header class="topbar">
+      <div class="title-block">
+        <h1 class="title">Lulu Sudoku</h1>
+        <div class="subtitle">绿意版数独</div>
+      </div>
+
       <div class="controls">
-        <label>Difficulty:
+        <label class="lbl">难度：
           <select id="difficulty">
-            <option value="easy">Easy</option>
-            <option value="medium" selected>Medium</option>
-            <option value="hard">Hard</option>
+            <option value="easy">简单</option>
+            <option value="medium" selected>中等</option>
+            <option value="hard">困难</option>
           </select>
         </label>
-        <button id="newBtn">New Game</button>
-        <button id="solveBtn">Solve</button>
-        <button id="hintBtn">Hint</button>
-        <label><input type="checkbox" id="noteMode"> Note</label>
+        <button id="newBtn" class="btn">新游戏</button>
+      </div>
+
+      <div class="status">
+        <div>时间：<span id="timer">00:00</span></div>
+        <div>错误：<span id="mistakes">0</span>/3</div>
       </div>
     </header>
 
     <main>
-      <div class="meta">
-        <div>Time: <span id="timer">00:00</span></div>
-        <div>Mistakes: <span id="mistakes">0</span>/3</div>
-      </div>
+      <div id="board" class="board" aria-label="数独 9x9 棋盘"></div>
 
-      <div id="board" aria-label="6 by 6 sudoku board"></div>
-
-      <div class="keypad" aria-hidden="false">
-        <button class="num">1</button>
-        <button class="num">2</button>
-        <button class="num">3</button>
-        <button class="num">4</button>
-        <button class="num">5</button>
-        <button class="num">6</button>
-        <button id="erase">Erase</button>
-        <button id="clearNotes">Clear Notes</button>
-      </div>
-
-      <div class="footer-note">
-        <small>Rules: Fill 1–6. Each row, column and 3×2 box must contain all digits 1–6.</small>
+      <div class="keypad">
+        <div class="keys">
+          <button class="key num" data-num="1">1</button>
+          <button class="key num" data-num="2">2</button>
+          <button class="key num" data-num="3">3</button>
+          <button class="key num" data-num="4">4</button>
+          <button class="key num" data-num="5">5</button>
+          <button class="key num" data-num="6">6</button>
+          <button class="key num" data-num="7">7</button>
+          <button class="key num" data-num="8">8</button>
+          <button class="key num" data-num="9">9</button>
+        </div>
+        <div class="actions">
+          <button id="erase" class="btn ghost">擦除</button>
+          <button id="restart" class="btn primary">重新开始</button>
+        </div>
       </div>
     </main>
+
+    <footer class="footer">
+      <small>规则：每行、每列、每个 3×3 小格都必须包含数字 1–9，且不重复。</small>
+    </footer>
   </div>
 
-  <script src="app.js"></script>
-  <script>
-    // register service worker for PWA
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(()=>console.log('SW registered'))
-        .catch(e=>console.warn('SW reg failed', e));
-    }
-  </script>
+  <!-- 完成弹窗 -->
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <h2>🎉 完成游戏！</h2>
+      <div class="result">
+        <p>用时：<span id="res-time">00:00</span></p>
+        <p>错误：<span id="res-mistakes">0</span> 次</p>
+        <p>难度：<span id="res-diff">中等</span></p>
+        <p>得分：<strong id="res-score">0</strong> 分</p>
+      </div>
+      <div class="modal-actions">
+        <button id="closeModal" class="btn">关闭</button>
+        <button id="viewBoard" class="btn ghost">查看排行榜</button>
+      </div>
+      <hr/>
+      <div class="leaderboard-block">
+        <h3>排行榜（最近成绩）</h3>
+        <ol id="leaderboard"></ol>
+        <div class="lb-actions">
+          <button id="clearBoard" class="btn ghost">清除记录</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
